@@ -1,0 +1,16 @@
+# robots.txt for https://axelbase.github.io/ssl-checker
+User-agent: *
+
+# Allow everything (this is a public, open-source tool)
+Allow: /
+
+# Sitemap location
+Sitemap: https://axelbase.github.io/ssl-checker/sitemap.xml
+
+# No need to block anything — we want full indexing
+# (GitHub Pages assets are in _app/ but served via hashes anyway)
+
+# Optional: be nice to crawlers
+Crawl-delay: 10
+
+# End of file
