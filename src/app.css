@@ -1,625 +1,204 @@
-/*
-========================================
-  APP.CSS (AxelBase Fancy Theme)
-========================================
-*/
+/* src/app.css */
+@import 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
 
-/* ----------------------------------------
-  1. Root Variables & Color Palette
-----------------------------------------
-  - "Beige Red": Interpreted as a dynamic, warm gradient.
-  - "Capri Blue": Used for outlines, accents, and glows.
-*/
 :root {
-  --clr-bg-main: #FAF0E6; /* Linen (Beige) base */
-  --clr-capri-blue: #00BFFF;
-  --clr-capri-glow: rgba(0, 191, 255, 0.4);
-  --clr-text-primary: #2c2c2c;
-  --clr-text-secondary: #4a4a4a;
-  
-  /* Glassmorphism Colors */
-  --clr-glass-bg: rgba(255, 255, 255, 0.15);
-  --clr-glass-border: rgba(255, 255, 255, 0.25);
-  --clr-glass-shadow: rgba(0, 0, 0, 0.1);
-
-  /* Font */
-  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-
-  /* Transitions & Radii */
-  --transition-fast: 0.2s ease;
-  --transition-medium: 0.4s ease;
-  --radius-card: 16px;
-  --radius-button: 10px;
-}
-
-/* ----------------------------------------
-  2. Global Styles & Dynamic Background
-----------------------------------------
-*/
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html {
-  scroll-behavior: smooth;
+  --primary: #F3A505;
+  --primary-dark: #d49204;
+  --dark: #1a1a1a;
+  --darker: #0f0f0f;
+  --light: #f8f9fa;
+  --gray: #333;
 }
 
 body {
-  font-family: var(--font-primary);
-  color: var(--clr-text-primary);
-  background-color: var(--clr-bg-main); /* Fallback */
-
-  /* Dynamic "Beige Red" Gradient Background */
-  background: linear-gradient(
-    -45deg, 
-    #d4a5a5, /* Muted Red-Beige */
-    #faf0e6, /* Linen */
-    #e6f0fa, /* Hint of blue */
-    #ffdcb1  /* Pale Gold */
-  );
-  background-size: 400% 400%;
-  animation: gradientBG 20s ease infinite;
+  background-color: var(--darker);
+  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
   min-height: 100vh;
 }
 
-@keyframes gradientBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.container {
+  max-width: 900px;
 }
 
-h1, h2, h3 {
-  font-weight: 700;
-  color: var(--clr-text-primary);
-}
-
-a {
-  color: var(--clr-capri-blue);
-  text-decoration: none;
-  transition: var(--transition-fast);
-}
-
-/* ----------------------------------------
-  3. Utility Class: Glassmorphism
-----------------------------------------
-*/
-.glass-panel {
-  background: var(--clr-glass-bg);
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-  border: 1px solid var(--clr-glass-border);
-  border-radius: var(--radius-card);
-  box-shadow: 0 8px 32px 0 var(--clr-glass-shadow);
-}
-
-/* ----------------------------------------
-  4. Navbar Styling
-----------------------------------------
-*/
-.navbar {
+/* Navbar */
+.navbar-custom {
+  background-color: var(--dark);
+  border-bottom: 3px solid var(--primary);
+  box-shadow: 0 4px 20px rgba(243, 165, 5, 0.2);
   position: sticky;
   top: 0;
   z-index: 1000;
-  width: 100%;
-  padding: 1rem 2.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  /* Apply Glassmorphism */
-  background: var(--clr-glass-bg);
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-  border-bottom: 1px solid var(--clr-glass-border);
-  box-shadow: 0 4px 20px var(--clr-glass-shadow);
-}
-
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  text-decoration: none;
-}
-
-.navbar-logo {
-  height: 40px;
-  width: 40px;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.navbar-brand:hover .navbar-logo {
-  /* Microinteraction: Logo tilt/spin */
-  transform: rotate(15deg) scale(1.1);
+  padding: 0.8rem 0;
 }
 
 .navbar-brand-text {
+  color: var(--primary) !important;
+  font-weight: 700;
   font-size: 1.6rem;
-  font-weight: 800;
-  color: var(--clr-text-primary);
-  text-decoration: none;
-  position: relative;
+  text-shadow: 0 0 10px rgba(243, 165, 5, 0.4);
+  transition: all 0.3s ease;
 }
 
-/* Microinteraction: Underline from center */
-.navbar-brand-text::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 2px;
-  background: var(--clr-capri-blue);
-  transition: width 0.3s ease-out;
-}
-
-.navbar-brand:hover .navbar-brand-text::after {
-  width: 100%;
-}
-
-.navbar-left-group {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.navbar-links {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 2rem;
+.navbar-brand-text:hover {
+  color: #fff !important;
+  text-shadow: 0 0 20px rgba(243, 165, 5, 0.8);
 }
 
 .nav-link {
-  color: var(--clr-text-secondary);
+  color: #ccc !important;
   font-weight: 500;
+  transition: all 0.3s ease;
   position: relative;
-  transition: color var(--transition-fast);
 }
 
 .nav-link:hover {
-  color: var(--clr-text-primary);
+  color: var(--primary) !important;
 }
 
 .nav-link::after {
   content: '';
   position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
+  width: 0;
   height: 2px;
-  background: var(--clr-capri-blue);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.3s ease-out;
+  bottom: -6px;
+  left: 50%;
+  background-color: var(--primary);
+  transition: all 0.3s ease;
 }
 
 .nav-link:hover::after {
-  transform: scaleX(1);
+  width: 100%;
+  left: 0;
 }
 
-/* ----------------------------------------
-  5. "Buy Me a Coffee" Button & Dropdown
-----------------------------------------
-*/
-.bmac-container {
-  position: relative;
-}
-
+/* Buy Me a Coffee Button */
 .bmac-button {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: black;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  font-weight: bold;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.6rem 1.2rem;
-  font-weight: 600;
-  color: #333;
-  /* Premium Element: Animated Gradient */
-  background: linear-gradient(145deg, #ffd700, #f0c000);
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(243, 165, 5, 0.4);
+}
+
+.bmac-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(243, 165, 5, 0.6);
+  background: linear-gradient(135deg, #fff, #f0d090);
+  color: black;
 }
 
 .bmac-button svg {
   width: 20px;
   height: 20px;
-  transition: transform var(--transition-medium) cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
-/* Microinteraction: Button Hover */
-.bmac-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-  background: linear-gradient(145deg, #ffe033, #f0c000);
-}
-
-.bmac-button:hover svg {
-  transform: rotate(10deg) scale(1.1);
-}
-
-.bmac-button:active {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
-}
-
-/* Microinteraction: Dropdown */
 .bmac-dropdown {
   position: absolute;
-  top: calc(100% + 12px);
-  left: 0;
-  min-width: 150px;
-  z-index: 1001;
-  overflow: hidden; /* For transition */
-  padding: 0.5rem 0;
-  /* Apply Glassmorphism */
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(15px) saturate(180%);
-  -webkit-backdrop-filter: blur(15px) saturate(180%);
-  border: 1px solid var(--clr-glass-border);
-  border-radius: var(--radius-button);
-  box-shadow: 0 8px 32px 0 var(--clr-glass-shadow);
+  top: 100%;
+  right: 0;
+  background: var(--dark);
+  border: 1px solid var(--primary);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  min-width: 120px;
 }
 
 .bmac-dropdown a {
   display: block;
-  padding: 0.75rem 1.5rem;
-  color: var(--clr-text-primary);
-  font-weight: 500;
-  transition: all 0.2s ease-out;
-}
-
-/* Microinteraction: Text slide right */
-.bmac-dropdown a:hover {
-  background: rgba(0, 191, 255, 0.15);
-  transform: translateX(8px);
-  color: #000;
-}
-
-.bmac-dropdown a:hover::before {
-  content: '→';
-  position: absolute;
-  left: 0.75rem;
-  color: var(--clr-capri-blue);
-}
-
-
-/* ----------------------------------------
-  6. Main Content & Layout
-----------------------------------------
-*/
-.main-content {
-  max-width: 800px;
-  margin: 0 auto;
-  /* Padding for sticky nav and fixed footer */
-  padding: 4rem 2rem 10rem 2rem;
-  width: 100%;
-}
-
-/* ----------------------------------------
-  7. Form & Input Styling
-----------------------------------------
-*/
-.form-container {
-  padding: 2.5rem;
-  margin-bottom: 3rem;
-  /* 3D Tilt Effect (on parent) */
-  perspective: 1000px;
-}
-
-.form-panel {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.form-container:hover .form-panel {
-  /* Premium Element: Card Lift/Tilt */
-  transform: rotateY(-3deg) scale(1.01);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-}
-
-.page-title {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2.5rem;
-  /* Premium Element: Subtle Text Gradient */
-  background: linear-gradient(90deg, var(--clr-capri-blue), var(--clr-text-primary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: var(--clr-text-secondary);
-}
-
-.form-input {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  font-size: 1rem;
-  font-family: var(--font-primary);
-  color: var(--clr-text-primary);
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid var(--clr-capri-blue);
-  border-radius: var(--radius-button);
-  transition: all var(--transition-fast);
-}
-
-.form-input::placeholder {
-  color: var(--clr-text-secondary);
-  opacity: 0.7;
-}
-
-.form-input:focus {
-  outline: none;
-  background: rgba(255, 255, 255, 0.8);
-  /* Premium Element: Focus Glow */
-  box-shadow: 0 0 15px var(--clr-capri-glow);
-  border-color: var(--clr-capri-blue);
-}
-
-.form-feedback {
-  font-size: 0.875rem;
-  color: #D9534F; /* Softer red */
-  margin-top: 0.5rem;
-}
-
-/* ----------------------------------------
-  8. Submit Button Styling
-----------------------------------------
-*/
-.submit-button {
-  width: 100%;
-  padding: 0.9rem 1.5rem;
-  font-size: 1.1rem;
-  font-weight: 600;
+  padding: 0.75rem 1rem;
   color: #fff;
-  background-color: var(--clr-capri-blue);
-  border: none;
-  border-radius: var(--radius-button);
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  transition: all 0.3s ease;
-  transform: translateY(0);
-}
-
-/* Microinteraction: Gradient Shift / Shimmer */
-.submit-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.3),
-    transparent
-  );
-  transition: all 0.6s ease;
-  z-index: -1;
-}
-
-.submit-button:hover {
-  /* Microinteraction: Lift & Glow */
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px var(--clr-capri-glow);
-}
-
-.submit-button:hover::before {
-  left: 100%;
-}
-
-.submit-button:disabled {
-  background-color: #aaa;
-  cursor: not-allowed;
-  transform: translateY(0);
-  box-shadow: none;
-}
-
-.submit-button:disabled:hover::before {
-  left: -100%;
-}
-
-/* ----------------------------------------
-  9. Loader, Error, and Result Styling
-----------------------------------------
-*/
-.loader-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 2rem;
-  color: var(--clr-text-secondary);
-}
-
-/* Premium Element: Custom Loading Animation */
-.loader {
-  width: 48px;
-  height: 48px;
-  border: 3px solid var(--clr-text-secondary);
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-.loader::after {
-  content: '';  
-  box-sizing: border-box;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  border: 3px solid;
-  border-color: var(--clr-capri-blue) transparent;
-}
-
-@keyframes rotation {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Error Panel */
-.error-panel {
-  margin-top: 2rem;
-  padding: 1.5rem;
-  background-color: rgba(217, 83, 79, 0.1);
-  border: 1px solid rgba(217, 83, 79, 0.3);
-  color: #a94442;
-  border-radius: var(--radius-button);
-}
-
-/* Result Card */
-.result-card {
-  margin-top: 2rem;
-  padding: 0;
-  overflow: hidden;
-  /* 3D Tilt Effect (on parent) */
-  perspective: 1000px;
-}
-
-.result-card-inner {
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.result-card:hover .result-card-inner {
-  /* Premium Element: Card Lift/Tilt */
-  transform: rotateX(5deg) scale(1.02);
-  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
-}
-
-.result-header {
-  padding: 1.5rem;
-  background: rgba(0, 191, 255, 0.1);
-  border-bottom: 1px solid rgba(0, 191, 255, 0.2);
-}
-
-.result-header-title {
-  margin: 0;
-  font-size: 1.5rem;
-  color: var(--clr-text-primary);
-  word-break: break-all;
-}
-
-.result-body {
-  padding: 1.5rem;
-  display: grid;
-  gap: 1rem;
-}
-
-.result-body p {
-  margin: 0;
-  font-size: 1rem;
-  color: var(--clr-text-secondary);
-}
-
-.result-body p strong {
-  color: var(--clr-text-primary);
-  min-width: 120px;
-  display: inline-block;
-}
-
-.status-badge {
-  display: inline-block;
-  padding: 0.5em 1em;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: 20px;
-  color: #fff;
-}
-.status-badge.success { background-color: #28a745; }
-.status-badge.warning { background-color: #ffc107; color: #333; }
-.status-badge.danger { background-color: #dc3545; }
-
-
-/* ----------------------------------------
-  10. Placeholder Sections (for main page)
-----------------------------------------
-*/
-.placeholder-section {
-  padding: 4rem 2rem;
-  margin-top: 3rem;
-  border-top: 1px solid var(--clr-glass-border);
-}
-
-.placeholder-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: var(--clr-capri-blue);
-}
-
-.placeholder-section p {
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: var(--clr-text-secondary);
-}
-
-
-/* ----------------------------------------
-  11. Footer Styling
-----------------------------------------
-*/
-.footer {
-  position: relative;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  width: 100%;
-  padding: 1.25rem 2.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.9rem;
-  color: var(--clr-text-secondary);
-  
-  /* Apply Glassmorphism */
-  background: var(--clr-glass-bg);
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-  border-top: 1px solid var(--clr-glass-border);
-  box-shadow: 0 -4px 20px var(--clr-glass-shadow);
-}
-
-.footer-links a {
-  color: var(--clr-text-secondary);
   text-decoration: none;
-  margin-left: 1.5rem;
-  transition: color var(--transition-fast);
+  text-align: center;
+  transition: all 0.2s ease;
 }
 
-.footer-links a:hover {
-  color: var(--clr-capri-blue);
+.bmac-dropdown a:hover {
+  background: var(--primary);
+  color: black;
+  font-weight: bold;
+}
+
+/* Main Content */
+h1, h2, h3, .card-title {
+  color: var(--primary);
+  text-shadow: 0 0 10px rgba(243, 165, 5, 0.3);
+}
+
+.form-control {
+  background-color: #222;
+  border: 1px solid #444;
+  color: #fff;
+}
+
+.form-control:focus {
+  background-color: #222;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 0.2rem rgba(243, 165, 5, 0.25);
+  color: #fff;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background-color: #fff;
+  color: black;
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.badge {
+  font-size: 1rem;
+  padding: 0.5em 1em;
+}
+
+/* Footer */
+.footer {
+  background-color: var(--dark);
+  color: #888;
+  text-align: center;
+  padding: 1rem;
+  border-top: 1px solid #333;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+.footer a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #fff;
   text-decoration: underline;
 }
 
-/* ----------------------------------------
-  12. Animation: Fade/Slide-in on Scroll
-----------------------------------------
-*/
-.fade-in-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in-section.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+/* Section Anchors */
+section {
+  scroll-margin-top: 100px;
 }

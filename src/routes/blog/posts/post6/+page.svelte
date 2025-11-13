@@ -1,282 +1,53 @@
-<script>
-    import { base } from '$app/paths';
-
-    function fadeInOnScroll(node) {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        node.classList.add('is-visible');
-                        observer.unobserve(node);
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
-        observer.observe(node);
-        return { destroy() { observer.unobserve(node); } };
-    }
+<script lang="ts">
+  import { base } from '$app/paths';
 </script>
 
 <svelte:head>
-    <title>Monitoring 100+ Domains? Here’s How • AxelBase</title>
-    <meta name="description" content="From startups to enterprises: scalable ways to monitor SSL certificate health across dozens or thousands of domains." />
-    <meta property="og:title" content="Monitoring 100+ Domains? Here’s How" />
-    <meta property="og:description" content="Free scripts, dashboards, and tools to keep your entire portfolio secure." />
-    <meta property="og:url" content="{base}/blog/posts/post6" />
-    <meta property="og:type" content="article" />
-    <meta name="twitter:card" content="summary_large_image" />
+  <title>Monitoring Multiple Domains at Scale in 2025 | AxelBase Blog</title>
+  <meta name="description" content="How DevOps teams monitor hundreds of SSL certificates without missing a single expiry — tools, workflows, and automation." />
+  <meta property="og:title" content="Monitoring Multiple Domains at Scale in 2025" />
+  <meta property="og:description" content="From 10 to 10,000 domains — here’s how large teams prevent certificate chaos." />
+  <meta property="og:url" content="{base}/blog/posts/post6" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
-<div class="post-page-wrapper" use:fadeInOnScroll>
-    <div class="breadcrumbs">
-        <a href="{base}/blog">Blog</a> <span>/</span>
-        <p>Monitoring Multiple Domains</p>
-    </div>
+<div class="container fade-in post-layout">
+  <div class="breadcrumbs">
+    <a href="{base}/blog">Blog</a> <span>/</span> <p>Monitoring Multiple Domains at Scale</p>
+  </div>
 
-    <article class="prose glass-panel">
-        <h1>Monitoring Multiple Domains? Here’s How</h1>
-        <p class="post-meta">Published: November 28, 2025</p>
+  <article class="prose">
+    <h1>Monitoring Multiple Domains at Scale in 2025</h1>
+    <p class="post-meta">Published: November 13, 2025 • 6 min read</p>
 
-        <p>
-            You don’t manage one site anymore — you manage 10, 50, or 500.
-            Manual checking is impossible. Here are real solutions.
-        </p>
+    <p>When you manage 5 domains, manual checks are fine. At 500+, you need systems. Here’s how large teams do it.</p>
 
-        <h2>Free & Open Source</h2>
-        <ul>
-            <li><strong>ssl-checker-cli</strong> — npm package, run in CI</li>
-            <li><strong>certwatch</strong> — Bash script + cron</li>
-            <li><strong>Healthchecks.io</strong> — Ping when cert 30 days</li>
-        </ul>
+    <h2>Centralized Inventory First</h2>
+    <p>Every mature team starts with a single source of truth — a CSV, database, or DNS zone export listing all domains and their certificate sources.</p>
 
-        <h2>Enterprise-Grade Tools</h2>
-        <p>
-            Sectigo Certificate Manager, AppViewX, Venafi — full lifecycle automation with Slack/Teams alerts.
-        </p>
+    <h2>Automated Daily Scans</h2>
+    <ul>
+      <li><strong>crl.sh</strong> + <strong>ctsearch</strong> — free Certificate Transparency monitoring</li>
+      <li><strong>SSL Labs API</strong> — deep certificate analysis</li>
+      <li><strong>Custom scripts</strong> using AxelBase logic</li>
+    </ul>
 
-        <h2>DIY Dashboard (Free)</h2>
-        <p>
-            Fork this repo → add your domains → deploy → get a live dashboard.
-            Works on GitHub Pages. Updates every hour via Actions.
-        </p>
+    <h2>Alerting That Actually Works</h2>
+    <p>Send alerts at <strong>60, 30, 14, 7, 3, and 1 day</strong> before expiry — to Slack, email, and PagerDuty.</p>
 
-        <h2>FAQ</h2>
-        <details class="fancy-details">
-            <summary>Can I get Slack alerts?</summary>
-            <div class="details-content">
-                <p>Yes — use webhook + cron + this checker API.</p>
-            </div>
-        </details>
+    <h2>Integration with CI/CD</h2>
+    <p>Block deployments if staging certificates are near expiry. Fail fast, fix early.</p>
 
-        <p class="italic-note">
-            Scale doesn’t have to mean stress. Automate early.
-        </p>
-    </article>
+    <blockquote class="border-start border-warning border-4 ps-4 py-3 my-5">
+      <strong>Pro Move:</strong> One Fortune 500 company runs 17,000+ certs with zero manual renewals using full ACME automation.
+    </blockquote>
+
+    <h2>Tools That Scale</h2>
+    <p>Start simple with <strong>AxelBase SSL Checker</strong> for spot checks. Graduate to <strong>CertSpotter</strong>, <strong>Keychest</strong>, or <strong>AWS Certificate Manager</strong> for enterprise scale.</p>
+
+    <p>Never be the person who takes down production at 3 AM.</p>
+
+    <p class="italic-note">Scale doesn’t have to mean complexity.</p>
+  </article>
 </div>
-
-<style>
-	/* ---------------------------------- */
-	/* 1. Page-Specific Variables */
-	/* ---------------------------------- */
-	.post-page-wrapper {
-		--clr-capri-blue: #00bfff;
-		--clr-text-primary: #2c2c2c;
-		--clr-text-secondary: #4a4a4a;
-		--clr-glass-bg: rgba(255, 255, 255, 0.2);
-		--clr-glass-border: rgba(255, 255, 255, 0.3);
-		--clr-glass-shadow: rgba(0, 0, 0, 0.1);
-		--radius-card: 16px;
-		--transition-fast: 0.2s ease;
-		--transition-medium: 0.4s ease;
-
-		max-width: 800px;
-		margin: 0 auto;
-
-		/* Animation Start State */
-		opacity: 0;
-		transform: translateY(30px);
-		transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-	}
-
-	/* ---------------------------------- */
-	/* 2. Glassmorphism Panel (Re-usable) */
-	/* ---------------------------------- */
-	.glass-panel {
-		background: var(--clr-glass-bg);
-		backdrop-filter: blur(12px) saturate(150%);
-		-webkit-backdrop-filter: blur(12px) saturate(150%);
-		border: 1px solid var(--clr-glass-border);
-		border-radius: var(--radius-card);
-		box-shadow: 0 8px 32px 0 var(--clr-glass-shadow);
-		padding: 2.5rem;
-	}
-
-	/* ---------------------------------- */
-	/* 3. Breadcrumbs */
-	/* ---------------------------------- */
-	.breadcrumbs {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-bottom: 1.5rem;
-		font-size: 0.9rem;
-		color: var(--clr-text-secondary);
-		padding: 0 1rem;
-	}
-	.breadcrumbs a {
-		color: var(--clr-capri-blue);
-		font-weight: 600;
-		text-decoration: none;
-	}
-	.breadcrumbs a:hover {
-		text-decoration: underline;
-	}
-	.breadcrumbs p {
-		margin: 0;
-		font-weight: 500;
-		color: var(--clr-text-primary);
-	}
-
-	/* ---------------------------------- */
-	/* 4. Prose / Article Styling */
-	/* ---------------------------------- */
-	.prose {
-		line-height: 1.8;
-	}
-
-	.prose .post-meta {
-		color: var(--clr-text-secondary);
-		font-size: 0.9rem;
-		margin-bottom: 2rem;
-		border-bottom: 1px solid var(--clr-glass-border);
-		padding-bottom: 1rem;
-	}
-
-	.prose h1,
-	.prose h2{
-		color: var(--clr-text-primary);
-		line-height: 1.3;
-	}
-
-	.prose h1 {
-		font-size: 2.5rem;
-		margin-bottom: 0.5rem;
-	}
-
-	.prose h2 {
-		font-size: 1.8rem;
-		margin-top: 2.5rem;
-		margin-bottom: 1rem;
-		border-bottom: 1px solid var(--clr-glass-border);
-		padding-bottom: 0.5rem;
-	}
-
-	.prose p {
-		color: var(--clr-text-secondary);
-		margin-bottom: 1.25rem;
-	}
-
-	.prose ul {
-		list-style-type: none;
-		padding-left: 1.5rem;
-		color: var(--clr-text-secondary);
-	}
-	.prose ul li {
-		position: relative;
-		padding-left: 1.5rem;
-		margin-bottom: 0.5rem;
-	}
-	/* Microinteraction: Custom list bullet */
-	.prose ul li::before {
-		content: '→';
-		position: absolute;
-		left: 0;
-		color: var(--clr-capri-blue);
-		font-weight: 700;
-	}
-
-	.prose .italic-note {
-		font-style: italic;
-		color: var(--clr-text-secondary);
-		text-align: center;
-		margin-top: 3rem;
-		opacity: 0.8;
-	}
-
-	/* ---------------------------------- */
-	/* 5. Fancy Details/Accordion */
-	/* ---------------------------------- */
-	.prose .fancy-details {
-		background: rgba(255, 255, 255, 0.2);
-		border: 1px solid var(--clr-glass-border);
-		border-radius: 10px;
-		margin-bottom: 1rem;
-		transition: all var(--transition-fast);
-		overflow: hidden;
-	}
-
-	.prose .fancy-details:hover {
-		border-color: var(--clr-capri-blue);
-	}
-
-	.prose .fancy-details[open] {
-		background: rgba(255, 255, 255, 0.3);
-	}
-
-	.prose summary {
-		cursor: pointer;
-		font-weight: 600;
-		color: var(--clr-text-primary);
-		padding: 1.25rem;
-		list-style: none; /* Remove default marker */
-		position: relative;
-		transition: background var(--transition-fast);
-	}
-
-	.prose summary:hover {
-		background: rgba(0, 191, 255, 0.05);
-	}
-
-	.prose summary::-webkit-details-marker {
-		display: none;
-	}
-
-	/* Microinteraction: Animated Plus/Minus icon */
-	.prose summary::before {
-		content: '+';
-		position: absolute;
-		right: 1.25rem;
-		top: 50%;
-		transform: translateY(-50%) rotate(0);
-		color: var(--clr-capri-blue);
-		font-weight: 700;
-		font-size: 1.5rem;
-		line-height: 1;
-		transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	}
-
-	.prose .fancy-details[open] summary::before {
-		transform: translateY(-50%) rotate(45deg);
-	}
-
-	.prose .details-content {
-		/* Smooth open/close animation */
-		max-height: 0;
-		opacity: 0;
-		overflow: hidden;
-		transition: max-height 0.4s ease-out, opacity 0.3s ease-in-out, padding 0.4s ease-out;
-	}
-
-	.prose .details-content p {
-		margin: 0;
-	}
-
-	.prose .fancy-details[open] .details-content {
-		padding: 0 1.25rem 1.25rem 1.25rem;
-		max-height: 300px; /* Adjust as needed */
-		opacity: 1;
-		border-top: 1px solid var(--clr-glass-border);
-		margin-top: -1px; /* Overlap border */
-	}
-</style>

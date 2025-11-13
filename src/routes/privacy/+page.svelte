@@ -1,240 +1,80 @@
-<script>
-    import { base } from '$app/paths';
-
-    function fadeInOnScroll(node) {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        node.classList.add('is-visible');
-                        observer.unobserve(node);
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
-        observer.observe(node);
-        return { destroy() { observer.unobserve(node); } };
-    }
+<script lang="ts">
+  import { base } from '$app/paths';
 </script>
 
 <svelte:head>
-    <title>Privacy Policy | AxelBase SSL Checker</title>
-    <meta name="description" content="We collect zero personal data. Your domain checks stay private — always." />
-    <meta property="og:title" content="Privacy Policy | AxelBase SSL Checker" />
-    <meta property="og:description" content="100% client-side. No tracking. No logs. No cookies." />
-    <meta property="og:url" content="{base}/privacy" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+  <title>Privacy Policy | AxelBase SSL Checker</title>
+  <meta name="description" content="AxelBase SSL Checker collects zero personal data. 100% client-side, no logs, no tracking, no cookies — your privacy is absolute." />
+  <meta property="og:title" content="Privacy Policy | AxelBase SSL Checker" />
+  <meta property="og:description" content="We don’t collect, store, or transmit any data. Your domain checks stay on your device — always." />
+  <meta property="og:url" content="{base}/privacy" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
-<div class="post-page-wrapper" use:fadeInOnScroll>
-    <div class="breadcrumbs">
-        <a href="{base}/">Home</a> <span>/</span>
-        <p>Privacy Policy</p>
-    </div>
+<div class="container fade-in post-layout">
+  <div class="breadcrumbs">
+    <a href="{base}/">Home</a> <span>/</span> <p>Privacy Policy</p>
+  </div>
 
-    <article class="prose glass-panel">
-        <h1>Privacy Policy</h1>
-        <p class="post-meta">Effective Date: November 13, 2025</p>
+  <article class="prose">
+    <h1>Privacy Policy</h1>
+    <p class="post-meta">Effective Date: November 13, 2025</p>
 
-        <h2>1. We Collect Nothing</h2>
-        <p>
-            The <strong>AxelBase SSL Certificate Checker</strong> is a <em>fully client-side</em> tool.
-            When you check a domain, <strong>no data leaves your browser to us</strong>.
-            We do not collect, store, log, or process any information about you or your queries.
-        </p>
+    <p>At <strong>AxelBase SSL Checker</strong>, your privacy is not just respected — it is <em>guaranteed by design</em>. This tool was built from the ground up as a <strong>100% client-side web application</strong>, meaning <strong>nothing you enter ever leaves your browser</strong>.</p>
 
-        <h2>2. What Happens When You Use the Tool</h2>
-        <p>
-            You enter a domain → JavaScript runs in your browser → a public proxy forwards the request
-            to the SSL API → results appear instantly.
-            <strong>Your IP never reaches the SSL API</strong> — only the proxy sees it.
-        </p>
+    <h2>We Collect Absolutely Nothing</h2>
+    <p>We do <strong>not</strong> collect, store, log, or transmit:</p>
+    <ul>
+      <li>Domain names you check</li>
+      <li>Your IP address</li>
+      <li>Browser or device information</li>
+      <li>Timestamps or usage patterns</li>
+      <li>Cookies, localStorage, or any tracking pixels</li>
+    </ul>
+    <p>All SSL certificate lookups are performed directly in your browser using a public CORS proxy and API. Even the proxy sees only anonymized requests — we have no access to them.</p>
 
-        <h2>3. Zero Tracking Technologies</h2>
-        <p>We do <strong>not</strong> use:</p>
-        <ul>
-            <li>Cookies or localStorage</li>
-            <li>Google Analytics, Meta Pixel, or any trackers</li>
-            <li>Session recording or heatmaps</li>
-            <li>Server logs (because there is no server)</li>
-        </ul>
+    <h2>How Your Data Stays Private</h2>
+    <p>When you use AxelBase SSL Checker:</p>
+    <ul>
+      <li><strong>All processing happens locally</strong> using JavaScript</li>
+      <li><strong>No backend servers</strong> are involved in data handling</li>
+      <li><strong>No analytics</strong> (Google Analytics, Plausible, etc.)</li>
+      <li><strong>No session persistence</strong> — refresh = clean slate</li>
+    </ul>
+    <p>This architecture ensures <strong>zero data retention</strong> and <strong>maximum privacy</strong> — even in the unlikely event of a breach, there is nothing to steal.</p>
 
-        <h2>4. Third-Party Services (Anonymous Only)</h2>
-        <p>
-            We rely on two public services for functionality:
-        </p>
-        <ul>
-            <li><strong>api.codetabs.com</strong> — CORS proxy (sees proxy IP only)</li>
-            <li><strong>ssl-checker.io</strong> — certificate data provider</li>
-        </ul>
-        <p>
-            Neither service receives identifiable information about you.
-            We have no control over their logging policies.
-        </p>
+    <h2>Third-Party Services</h2>
+    <p>The only external request is to a <strong>public CORS proxy</strong> and the <strong>ssl-checker.io</strong> API — both are used solely to fetch certificate data. These services may log requests for abuse prevention, but <strong>we do not control or receive this data</strong>.</p>
 
-        <h2>5. Your Data Rights</h2>
-        <p>
-            Since we collect nothing, there is:
-			</p>
-            <ul>
-                <li>No data to delete</li>
-                <li>No account to close</li>
-                <li>No privacy request needed</li>
-            </ul>
-            Just close the tab — and you're gone.
-			<p>
-        </p>
+    <h2>Your Rights & Compliance</h2>
+    <p>Because no personal data is collected, we are compliant by default with:</p>
+    <ul>
+      <li><strong>GDPR</strong> (EU)</li>
+      <li><strong>CCPA/CPRA</strong> (California)</li>
+      <li><strong>LGPD</strong> (Brazil)</li>
+      <li><strong>PIPEDA</strong> (Canada)</li>
+    </ul>
+    <p>No consent banners. No cookie notices. No data subject requests needed.</p>
 
-        <h2>6. Changes to This Policy</h2>
-        <p>
-            We may update this policy. Changes will be posted here with a new effective date.
-        </p>
+    <h2>Children’s Privacy</h2>
+    <p>This tool is safe and appropriate for all ages. No personal information is ever requested or stored.</p>
 
-        <h2>7. Contact</h2>
-        <p>
-            Questions? Reach out via GitHub Issues on the repository.
-        </p>
+    <h2>Changes to This Policy</h2>
+    <p>We may update this policy if new features are added. Any changes will be clearly announced on the site.</p>
 
-        <p class="italic-note">
-            <strong>Privacy isn’t a feature — it’s the foundation.</strong>
-            That’s why AxelBase SSL Checker will always remain 100% private by design.
-        </p>
-    </article>
+    <p class="italic-note">
+      <strong>Your trust is everything.</strong><br>
+      That’s why we built a tool that proves privacy isn’t just a promise — it’s code.
+    </p>
+  </article>
 </div>
 
 <style>
-	/* ---------------------------------- */
-	/* 1. Page-Specific Variables */
-	/* ---------------------------------- */
-	.post-page-wrapper {
-		--clr-capri-blue: #00bfff;
-		--clr-text-primary: #2c2c2c;
-		--clr-text-secondary: #4a4a4a;
-		--clr-glass-bg: rgba(255, 255, 255, 0.2);
-		--clr-glass-border: rgba(255, 255, 255, 0.3);
-		--clr-glass-shadow: rgba(0, 0, 0, 0.1);
-		--radius-card: 16px;
-		--transition-fast: 0.2s ease;
-		--transition-medium: 0.4s ease;
-
-		max-width: 800px;
-		margin: 0 auto;
-
-		/* Animation Start State */
-		opacity: 0;
-		transform: translateY(30px);
-		transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-	}
-
-	/* ---------------------------------- */
-	/* 2. Glassmorphism Panel (Re-usable) */
-	/* ---------------------------------- */
-	.glass-panel {
-		background: var(--clr-glass-bg);
-		backdrop-filter: blur(12px) saturate(150%);
-		-webkit-backdrop-filter: blur(12px) saturate(150%);
-		border: 1px solid var(--clr-glass-border);
-		border-radius: var(--radius-card);
-		box-shadow: 0 8px 32px 0 var(--clr-glass-shadow);
-		padding: 2.5rem;
-	}
-
-	/* ---------------------------------- */
-	/* 3. Breadcrumbs */
-	/* ---------------------------------- */
-	.breadcrumbs {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		margin-bottom: 1.5rem;
-		font-size: 0.9rem;
-		color: var(--clr-text-secondary);
-		padding: 0 1rem;
-	}
-	.breadcrumbs a {
-		color: var(--clr-capri-blue);
-		font-weight: 600;
-		text-decoration: none;
-	}
-	.breadcrumbs a:hover {
-		text-decoration: underline;
-	}
-	.breadcrumbs p {
-		margin: 0;
-		font-weight: 500;
-		color: var(--clr-text-primary);
-	}
-
-	/* ---------------------------------- */
-	/* 4. Prose / Article Styling */
-	/* ---------------------------------- */
-	.prose {
-		line-height: 1.8;
-	}
-
-	.prose .post-meta {
-		color: var(--clr-text-secondary);
-		font-size: 0.9rem;
-		margin-bottom: 2rem;
-		border-bottom: 1px solid var(--clr-glass-border);
-		padding-bottom: 1rem;
-	}
-
-	.prose h1,
-	.prose h2 {
-		color: var(--clr-text-primary);
-		line-height: 1.3;
-	}
-
-	.prose h1 {
-		font-size: 2.5rem;
-		margin-bottom: 0.5rem;
-	}
-
-	.prose h2 {
-		font-size: 1.8rem;
-		margin-top: 2.5rem;
-		margin-bottom: 1rem;
-		border-bottom: 1px solid var(--clr-glass-border);
-		padding-bottom: 0.5rem;
-	}
-
-	.prose p {
-		color: var(--clr-text-secondary);
-		margin-bottom: 1.25rem;
-	}
-
-	.prose strong {
-		color: var(--clr-text-primary);
-		font-weight: 600;
-	}
-
-	.prose ul {
-		list-style-type: none;
-		padding-left: 1.5rem;
-		color: var(--clr-text-secondary);
-	}
-	.prose ul li {
-		position: relative;
-		padding-left: 1.5rem;
-		margin-bottom: 0.5rem;
-	}
-	/* Microinteraction: Custom list bullet */
-	.prose ul li::before {
-		content: '→';
-		position: absolute;
-		left: 0;
-		color: var(--clr-capri-blue);
-		font-weight: 700;
-	}
-
-	.prose .italic-note {
-		font-style: italic;
-		color: var(--clr-text-secondary);
-		text-align: center;
-		margin-top: 3rem;
-		opacity: 0.8;
-	}
+  .post-layout { max-width: 800px; padding: 3rem 1rem; }
+  .breadcrumbs a { color: #F3A505; }
+  .prose h1, .prose h2 { color: #F3A505; }
+  .prose ul { list-style-type: '→ '; }
+  .prose ul li::marker { color: #F3A505; }
+  .italic-note { font-style: italic; text-align: center; color: #aaa; margin-top: 4rem; font-size: 1.1rem; }
 </style>

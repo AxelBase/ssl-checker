@@ -1,190 +1,96 @@
 <script>
-    import { base } from '$app/paths';
-
-    const posts = [
-        {
-            href: '/blog/posts/post1',
-            title: 'Why SSL Certificates Expire (And Why It Matters)',
-            description: 'Understanding certificate lifecycles, renewal risks, and how expiration impacts trust and SEO.'
-        },
-        {
-            href: '/blog/posts/post2',
-            title: 'How to Never Miss an SSL Renewal Again',
-            description: 'Proven strategies used by DevOps teams to automate monitoring and avoid downtime.'
-        },
-        {
-            href: '/blog/posts/post3',
-            title: 'The Hidden Cost of Expired Certificates',
-            description: 'Browser warnings, lost traffic, SEO penalties — real-world impact with case studies.'
-        },
-        {
-            href: '/blog/posts/post4',
-            title: 'Let’s Encrypt vs Paid CAs: Which Should You Use?',
-            description: 'A balanced comparison of automation, support, features, and when to pay for a cert.'
-        },
-        {
-            href: '/blog/posts/post5',
-            title: 'How This SSL Checker Works Under the Hood',
-            description: 'Deep dive into CORS proxies, certificate transparency, and client-side validation.'
-        },
-        {
-            href: '/blog/posts/post6',
-            title: 'Monitoring Multiple Domains? Here’s How',
-            description: 'From personal sites to enterprise fleets — scalable ways to track certificate health.'
-        },
-        {
-            href: '/blog/posts/post7',
-            title: 'Deploy Your Own SSL Checker in 5 Minutes',
-            description: 'Fork this open-source tool, host on GitHub Pages, and make it yours — no server needed.'
-        }
-    ];
-
-    // Premium: Fade-in on scroll
-    function fadeInOnScroll(node) {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        node.classList.add('is-visible');
-                        observer.unobserve(node);
-                    }
-                });
-            },
-            { threshold: 0.1 }
-        );
-        observer.observe(node);
-        return { destroy() { observer.unobserve(node); } };
-    }
+  import { base } from '$app/paths';
+  
+  const posts = [
+    { href: '/blog/posts/post1', title: 'Why SSL Certificates Matter in 2025', description: 'Understanding the importance of valid TLS certificates for security, SEO, and user trust.' },
+    { href: '/blog/posts/post2', title: 'How to Prevent SSL Certificate Expiry Downtime', description: 'Real-world strategies used by top companies to avoid embarrassing certificate outages.' },
+    { href: '/blog/posts/post3', title: 'The Hidden Cost of Expired SSL Certificates', description: 'From lost sales to damaged reputation — what happens when your cert expires.' },
+    { href: '/blog/posts/post4', title: 'Let’s Encrypt vs Paid Certificates: Which Should You Use?', description: 'A balanced comparison of free vs commercial SSL providers in 2025.' },
+    { href: '/blog/posts/post5', title: 'How This Tool Works Under the Hood', description: 'Deep dive into the CORS proxy, API parsing, and real-time validation logic.' },
+    { href: '/blog/posts/post6', title: 'Monitoring Multiple Domains at Scale', description: 'Tips for sysadmins and DevOps teams managing hundreds of certificates.' },
+    { href: '/blog/posts/post7', title: 'The Future of SSL Automation', description: 'ACME v2, zero-downtime renewals, and what’s coming next in certificate management.' }
+  ];
 </script>
 
 <svelte:head>
-    <title>Blog • AxelBase SSL Checker</title>
-    <meta name="description" content="Learn about SSL/TLS certificates, renewal best practices, and how to keep your sites secure." />
+  <title>Blog | AxelBase SSL Checker</title>
+  <meta name="description" content="Insights, tutorials, and best practices for SSL certificate monitoring and management." />
 </svelte:head>
 
-<div class="blog-index-wrapper" use:fadeInOnScroll>
-    <header class="blog-header">
-        <h1>AxelBase Insights</h1>
-        <p class="subtitle">
-            Deep dives, tutorials, and best practices for SSL certificate management and web security.
-        </p>
-    </header>
+<div class="container py-5 fade-in blog-index">
+  <header class="blog-header text-center mb-5">
+    <h1 class="display-5 fw-bold mb-3">
+      Blog: AxelBase Insights
+    </h1>
+    <p class="lead text-muted col-lg-8 mx-auto">
+      Stay updated with SSL best practices, security tips, and in-depth guides on certificate management. 
+      Built for developers, sysadmins, and security-conscious teams.
+    </p>
+  </header>
 
-    <div class="posts-grid-container">
-        <div class="posts-grid">
-            {#each posts as post, i}
-                <a
-                    href="{base}{post.href}"
-                    class="post-card glass-panel"
-                    style="--delay: {i * 80}ms"
-                    use:fadeInOnScroll
-                >
-                    <div class="post-card-inner">
-                        <h2 class="post-title">{post.title}</h2>
-                        <p class="post-description">{post.description}</p>
-                        <span class="read-more">
-                            Read Article <span class="arrow">→</span>
-                        </span>
-                    </div>
-                </a>
-            {/each}
+  <div class="posts-grid">
+    {#each posts as post}
+      <a href="{base}{post.href}" class="post-card card h-100 border-0 shadow-sm bg-dark text-decoration-none">
+        <div class="card-body d-flex flex-column">
+          <h3 class="post-title mb-3">{post.title}</h3>
+          <p class="post-description text-secondary flex-grow-1">{post.description}</p>
+          <div class="mt-auto">
+            <span class="read-more fw-bold">Read Article →</span>
+          </div>
         </div>
-    </div>
+      </a>
+    {/each}
+  </div>
 </div>
 
 <style>
-    :global(body) { background: linear-gradient(135deg, #0f1620 0%, #1a2a44 100%); color: #e0e0e0; }
+  .blog-index {
+    padding-top: 3rem;
+    padding-bottom: 6rem;
+  }
 
-    .blog-index-wrapper {
-        --clr-capri: #00d4ff;
-        --clr-capri-glow: rgba(0, 212, 255, 0.3);
-        --clr-text: #e6f1ff;
-        --clr-text-muted: #94b0c9;
-        --clr-glass: rgba(255, 255, 255, 0.08);
-        --clr-border: rgba(255, 255, 255, 0.15);
-        --radius: 18px;
+  .blog-header h1 {
+    color: #F3A505;
+    text-shadow: 0 0 15px rgba(243, 165, 5, 0.3);
+  }
 
-        opacity: 0;
-        transform: translateY(40px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-    }
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
 
-    .blog-header {
-        text-align: center;
-        margin-bottom: 4rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid var(--clr-border);
-    }
-    .blog-header h1 {
-        font-size: 3.2rem;
-        background: linear-gradient(90deg, var(--clr-capri), #ffffff);
-        -webkit-text-fill-color: transparent;
-        margin-bottom: 1rem;
-    }
-    .subtitle {
-        font-size: 1.25rem;
-        color: var(--clr-text-muted);
-        max-width: 720px;
-        margin: 0 auto;
-        line-height: 1.7;
-    }
+  .post-card {
+    transition: all 0.4s ease;
+    background: #1e1e1e !important;
+    border: 1px solid #333 !important;
+  }
 
-    .posts-grid-container { perspective: 1600px; }
-    .posts-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-        gap: 2rem;
-        padding: 1rem;
-    }
+  .post-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(243, 165, 5, 0.15) !important;
+    border-color: #F3A505 !important;
+  }
 
-    .glass-panel {
-        background: var(--clr-glass);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border: 1px solid var(--clr-border);
-        border-radius: var(--radius);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
+  .post-title {
+    color: #F3A505;
+    font-size: 1.35rem;
+    font-weight: 600;
+  }
 
-    .post-card {
-        text-decoration: none;
-        display: block;
-        padding: 2rem;
-        opacity: 0;
-        transform: translateY(30px);
-        animation: fadeIn 0.7s ease-out forwards;
-        animation-delay: var(--delay);
-    }
-    @keyframes fadeIn {
-        to { opacity: 1; transform: translateY(0); }
-    }
+  .post-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
 
-    .post-card:hover {
-        transform: translateY(-12px) rotateX(4deg);
-        border-color: var(--clr-capri);
-        box-shadow: 0 20px 50px rgba(0, 212, 255, 0.2);
-    }
+  .read-more {
+    color: #F3A505;
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
 
-    .post-title {
-        font-size: 1.4rem;
-        font-weight: 700;
-        color: var(--clr-text);
-        margin-bottom: 1rem;
-    }
-    .post-description {
-        color: var(--clr-text-muted);
-        line-height: 1.65;
-        margin-bottom: 1.5rem;
-    }
-    .read-more {
-        color: var(--clr-capri);
-        font-weight: 600;
-        font-size: 1.05rem;
-    }
-    .read-more .arrow {
-        display: inline-block;
-        transition: transform 0.25s ease;
-    }
-    .post-card:hover .arrow { transform: translateX(8px); }
+  .post-card:hover .read-more {
+    color: #fff;
+    transform: translateX(8px);
+  }
 </style>

@@ -1,1 +1,0 @@
-import{c as u,b as o,N as _,h as t,e as g,C as p,G as l,k as i,a as d,l as m}from"./Bn4751X7.js";function E(n,r){let s=null,f=t;var a;if(t){s=m;for(var e=g(document.head);e!==null&&(e.nodeType!==p||e.data!==n);)e=l(e);if(e===null)i(!1);else{var y=l(e);e.remove(),d(y)}}t||(a=document.head.appendChild(u()));try{o(()=>r(a),_)}finally{f&&(i(!0),d(s))}}export{E as h};
