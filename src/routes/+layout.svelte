@@ -2,12 +2,8 @@
   import { base } from '$app/paths';
   import { onMount } from 'svelte';
   import '../app.css';
-  import { fade } from 'svelte/transition';
+  import { fly } from 'svelte/transition';
 
-  // CHANGE THIS TO YOUR PAYPAL USERNAME
-  const paypalUsername = 'AxelLab427'; // e.g. 'yourpaypalname'
-
-  const donationAmounts = [1, 3, 5, 10];
   let isDropdownOpen = false;
 
   function toggleDropdown(e: MouseEvent) {
@@ -57,34 +53,39 @@
 
           <li class="position-relative" use:clickOutside>
             <button
-              class="bmac-button d-flex align-items-center gap-2"
+              class="bmac-button d-flex align-items-center gap-2 text-white border-0 px-4 py-2 rounded-pill shadow-sm"
               on:click={toggleDropdown}
-              aria-label="Support via PayPal"
+              aria-label="Support options"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.35,22.2L12,22A10,10,0,0,1,2,12V10A2,2,0,0,1,4,8H7.2A5.13,5.13,0,0,1,12,3A5.13,5.13,0,0,1,16.8,8H20A2,2,0,0,1,22,10V12A10,10,0,0,1,12.35,22.2M4,10V12A8,8,0,0,0,12,20A8,8,0,0,0,20,12V10H16.8A5.11,5.11,0,0,1,12.5,5.12A5.15,5.15,0,0,1,7.2,10H4Z"/>
+                <path d="M2,21V19H20V21H2M20,8V5H4V8H20M20,10H4V13C4,14.38 4.5,15.63 5.31,16.58L11.64,19H12.36L18.69,16.58C19.5,15.63 20,14.38 20,13V10M16,2H8V4H16V2Z" />
               </svg>
-              Buy me a coffee
+              <span class="d-none d-sm-inline fw-semibold">Buy me a Coffee</span>
             </button>
 
-            {#if isDropdownOpen && paypalUsername}
-              <div class="bmac-dropdown shadow-lg" transition:fade={{ duration: 180 }}>
-                {#each donationAmounts as amount}
-                  <a
-                    href="https://paypal.me/{paypalUsername}/{amount}"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="d-block text-center py-2"
-                    on:click|preventDefault
-                    on:mousedown|preventDefault={(e) => {
-                      e.preventDefault();
-                      window.open(`https://paypal.me/${paypalUsername}/${amount}`, '_blank');
-                      closeDropdown();
-                    }}
-                  >
-                    ${amount}
-                  </a>
-                {/each}
+            {#if isDropdownOpen}
+              <div class="bmac-dropdown mt-2" transition:fly={{ y: -10, duration: 250 }}>
+                <a href="https://buymeacoffee.com/axelbase" target="_blank" rel="noopener" on:click={closeDropdown}>
+                  <span class="amount">$3</span> One Coffee
+                </a>
+                <a href="https://buymeacoffee.com/axelbase" target="_blank" rel="noopener" on:click={closeDropdown}>
+                  <span class="amount">$5</span> Two Coffees
+                </a>
+                <a href="https://buymeacoffee.com/axelbase" target="_blank" rel="noopener" on:click={closeDropdown}>
+                  <span class="amount">$10</span> Three Coffees
+                </a>
+
+                <a href="https://buymeacoffee.com/axelbase" target="_blank" rel="noopener" on:click={closeDropdown} class="custom-amount">
+                  Custom Amount
+                </a>
+
+                <a
+                  href="bitcoin:bc1q3p0e6vt492m4w4fpz5m2cl4zcfuqqkgaj6myc9?label=AxelBase&message=Buy%20me%20a%20coffee"
+                  on:click={closeDropdown}
+                  class="custom-amount"
+                >
+                  Buy via Crypto (Bitcoin)
+                </a>
               </div>
             {/if}
           </li>
@@ -101,7 +102,7 @@
     <div class="container text-center">
       <p class="mb-0 text-secondary">
         © <span id="current-year">2025</span> AxelBase SSL Checker – All rights reserved.<br>
-        <a href="{base}/privacy" class="text-warning">Privacy Policy</a> • 
+        <a href="{base}/privacy" class="text-warning">Privacy Policy</a> •
         <a href="{base}/terms" class="text-warning">Terms of Service</a>
       </p>
     </div>
@@ -109,36 +110,66 @@
 </div>
 
 <style>
+  /* Button styles kept from File 1, adapted to File 2's orange/yellow theme */
   .bmac-button {
-    background: #ff813f;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s;
+    background: var(--primary);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(243, 165, 5, 0.4);
   }
-  .bmac-button:hover { background: #e66f30; }
+  .bmac-button:hover {
+    background: #fff;
+    color: black;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(243, 165, 5, 0.6);
+  }
 
+  /* Dropdown styles from File 1, adapted to dark theme with primary color accents */
   .bmac-dropdown {
     position: absolute;
     top: 100%;
-    right: 0;
-    background: #222;
-    border: 1px solid #444;
-    border-radius: 0.5rem;
-    min-width: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 240px;
+    background: var(--dark);
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(243, 165, 5, 0.15);
+    overflow: hidden;
+    border: 1px solid rgba(243, 165, 5, 0.2);
     z-index: 1000;
-    margin-top: 0.5rem;
   }
+
   .bmac-dropdown a {
-    color: #ff813f;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    color: #e0e0e0;
     text-decoration: none;
-    font-weight: bold;
+    font-size: 0.98rem;
+    transition: all 0.2s ease;
   }
+
   .bmac-dropdown a:hover {
-    background: #333;
-    color: white;
+    background: var(--primary);
+    color: black;
+    padding-left: 28px;
+  }
+
+  .bmac-dropdown .amount {
+    font-weight: 700;
+    color: var(--primary);
+    font-size: 1.1rem;
+  }
+
+  .bmac-dropdown .custom-amount {
+    font-weight: 600;
+    color: var(--primary);
+    border-top: 1px solid #444;
+    justify-content: center !important;
+  }
+
+  .bmac-dropdown .custom-amount:hover {
+    color: black;
   }
 </style>
