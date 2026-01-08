@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://axelbase.github.io/ssl-checker/sitemap.xml
+Sitemap: https://ssl-checker.vercel.app/sitemap.xml
